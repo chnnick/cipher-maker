@@ -93,8 +93,8 @@ def main():
             decrypt("c")
       else:
         print("Invalid cipher choice!")
-      else:
-        print("Invalid mode choice!")
+    else:
+      print("Invalid mode choice!")
 
 if __name__ == "__main__":
     main()
