@@ -16,7 +16,29 @@ A simple encryption and decryption tool that supports **Vigenère** and **Caesar
 ## Example Usage
 
 ### Encrypt with Vigenère Cipher:
-```plaintext
+```
 Plaintext: Hello, World!
 Key: KEY
 Ciphertext: Riodc+%bwe|i%
+```
+
+### Encrypt with Caesar Cipher:
+```
+Plaintext: Hello, World!
+Key: 5
+Ciphertext: Mjqqt%\twqi&
+```
+
+### Decrypt with Vigenère Cipher:
+```
+Ciphertext: Riodc+%bwe|i%
+Key: KEY
+Plaintext: Hello, World!
+```
+
+### Decrypt with Caesar Cipher:
+```
+Ciphertext: Mjqqt%\twqi&
+Key: 5
+Plaintext: Hello, World!
+```
