@@ -72,13 +72,27 @@ def decrypt(cipher_type):
   except ValueError as e:
     print(f"Error: {e}")
 
+def cryptanalysis_caesar(ciphertext):
+    print("\n=== Caesar Cipher Cryptanalysis ===")
+    for key in range(KEY_RANGE):
+        try:
+            decrypted = caesar_decrypt(ciphertext, key)
+            print(f"Key {key:2d}: {decrypted[:50]}{'...' if len(decrypted) > 50 else ''}")
+        except:
+            continue
+    print("=" * 40)
+
 def main():
-  print("Welcome to Nick's Ciphermaker!")
-  while True:
-    mode = input("Choose mode: (e)ncrypt, (d)ecrypt, or (q)uit: ").lower()
-    if mode == "q":
-      print("Goodbye!")
-      break
+    print("Welcome to Nick's Ciphermaker!")
+    while True:
+      mode = input("Choose mode: (e)ncrypt, (d)ecrypt, (a)nalyze Caesar, or (q)uit: ").lower()
+      if mode == "q":
+          print("Goodbye!")
+          break
+      elif mode == "a":
+          ciphertext = input("Enter Caesar ciphertext to analyze: ")
+          cryptanalysis_caesar(ciphertext)
+      elif mode in ["e", "d"]:
     elif mode in ["e", "d"]:
       cipher = input("Choose cipher: (v)Vigenère or (c)Caesar: ").lower()
       if cipher == "v":
