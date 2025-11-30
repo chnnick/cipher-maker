@@ -1,4 +1,6 @@
-import string
+#!/usr/bin/env python3
+
+import argparse
 
 MIN = 32
 MAX = 126
@@ -48,9 +50,7 @@ def caesar_decrypt(ciphertext, key):
   cipher = str.maketrans(original, shifted)
   return ciphertext.translate(cipher)
 
-def encrypt(cipher_type):
-  plaintext = input("Enter the plaintext: ")
-  key = input("Enter the key (integer for Caesar): ")
+def encrypt(cipher_type, plaintext, key):
   try:
     if cipher_type == "v":
       ciphertext = vigenere_encrypt(plaintext, key)
@@ -60,9 +60,7 @@ def encrypt(cipher_type):
   except ValueError as e:
     print(f"Error: {e}")
 
-def decrypt(cipher_type):
-  ciphertext = input("Enter the ciphertext: ")
-  key = input("Enter the key (integer for Caesar): ")
+def decrypt(cipher_type, ciphertext, key):
   try:
     if cipher_type == "v":
       plaintext = vigenere_decrypt(ciphertext, key)
@@ -73,28 +71,28 @@ def decrypt(cipher_type):
     print(f"Error: {e}")
 
 def main():
-  print("Welcome to Nick's Ciphermaker!")
-  while True:
-    mode = input("Choose mode: (e)ncrypt, (d)ecrypt, or (q)uit: ").lower()
-    if mode == "q":
-      print("Goodbye!")
-      break
-    elif mode in ["e", "d"]:
-      cipher = input("Choose cipher: (v)Vigenère or (c)Caesar: ").lower()
-      if cipher == "v":
-        if mode == "e":
-            encrypt("v")
-        else:
-            decrypt("v")
-      elif cipher == "c":
-        if mode == "e":
-            encrypt("c")
-        else:
-            decrypt("c")
-      else:
-        print("Invalid cipher choice!")
-    else:
-      print("Invalid mode choice!")
+  parser = argparse.ArgumentParser(description="Nick's Ciphermaker - Encrypt and decrypt messages")
+  subparsers = parser.add_subparsers(dest="mode", help="Choose operation mode", required=True)
+
+  encrypt_parser = subparsers.add_parser("encrypt", help="Encrypt a message")
+  encrypt_parser.add_argument("cipher", choices=["v", "c"], help="Cipher type: 'v' for Vigenere, 'c' for Caesar")
+  encrypt_parser.add_argument("plaintext", help="The plaintext to encrypt")
+  encrypt_parser.add_argument("key", help="Encryption key")
+
+  decrypt_parser = subparsers.add_parser("decrypt", help="Decrypt a message")
+  decrypt_parser.add_argument("cipher", choices=["v", "c"], help="Cipher type: 'v' for Vigenere, 'c' for Caesar")
+  decrypt_parser.add_argument("ciphertext", help="The ciphertext to decrypt")
+  decrypt_parser.add_argument("key", help="Decryption key")
+
+  args = parser.parse_args()
+
+  if args.mode == "encrypt":
+    encrypt(args.cipher, args.plaintext, args.key)  # Changed from args.message
+  elif args.mode == "decrypt":
+    decrypt(args.cipher, args.ciphertext, args.key)  # Changed from args.message
+  else:
+    parser.print_help()
+    return
 
 if __name__ == "__main__":
-    main()
+  main()

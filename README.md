@@ -16,29 +16,41 @@ A simple encryption and decryption tool that supports **Vigenère** and **Caesar
 ## Example Usage
 
 ### Encrypt with Vigenère Cipher:
+```bash
+./cipher.py encrypt v "Hello World" "Hello World"
 ```
-Plaintext: Hello, World!
-Key: KEY
-Ciphertext: Riodc+%bwe|i%
+Will output:
+```bash
+Encrypted message:
+1kyy @O &yi
 ```
 
 ### Encrypt with Caesar Cipher:
+```bash
+./cipher.py encrypt c "Hello World" 3
 ```
-Plaintext: Hello, World!
-Key: 5
-Ciphertext: Mjqqt%\twqi&
+Will output:
+```bash
+Encrypted message:
+Khoor#Zruog
 ```
 
 ### Decrypt with Vigenère Cipher:
+```bash
+./cipher.py decrypt v "1kyy @O &yi" "Hello World"
 ```
-Ciphertext: Riodc+%bwe|i%
-Key: KEY
-Plaintext: Hello, World!
+Will output:
+```bash
+Decrypted message:
+Hello World
 ```
 
 ### Decrypt with Caesar Cipher:
+```bash
+./cipher.py decrypt c "Khoor#Zruog" 3
 ```
-Ciphertext: Mjqqt%\twqi&
-Key: 5
-Plaintext: Hello, World!
+Will output:
+```bash
+Decrypted message:
+Hello World
 ```
