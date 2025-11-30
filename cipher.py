@@ -70,9 +70,22 @@ def decrypt(cipher_type, ciphertext, key):
   except ValueError as e:
     print(f"Error: {e}")
 
+def cryptanalysis_caesar(ciphertext):
+    print("\n=== Caesar Cipher Cryptanalysis ===")
+    for key in range(KEY_RANGE):
+        try:
+            decrypted = caesar_decrypt(ciphertext, key)
+            print(f"Key {key:2d}: {decrypted[:50]}{'...' if len(decrypted) > 50 else ''}")
+        except:
+            continue
+    print("=" * 40)
+
 def main():
   parser = argparse.ArgumentParser(description="Nick's Ciphermaker - Encrypt and decrypt messages")
   subparsers = parser.add_subparsers(dest="mode", help="Choose operation mode", required=True)
+
+  cryptanalysis_parser = subparsers.add_parser("caesar-brute", help="Brute force a Caesar ciphertext")
+  cryptanalysis_parser.add_argument("ciphertext", help="The ciphertext to analyze")
 
   encrypt_parser = subparsers.add_parser("encrypt", help="Encrypt a message")
   encrypt_parser.add_argument("cipher", choices=["v", "c"], help="Cipher type: 'v' for Vigenere, 'c' for Caesar")
@@ -87,9 +100,11 @@ def main():
   args = parser.parse_args()
 
   if args.mode == "encrypt":
-    encrypt(args.cipher, args.plaintext, args.key)  # Changed from args.message
+    encrypt(args.cipher, args.plaintext, args.key)
   elif args.mode == "decrypt":
-    decrypt(args.cipher, args.ciphertext, args.key)  # Changed from args.message
+    decrypt(args.cipher, args.ciphertext, args.key)
+  elif args.mode == "caesar-brute":
+    cryptanalysis_caesar(args.ciphertext)
   else:
     parser.print_help()
     return
